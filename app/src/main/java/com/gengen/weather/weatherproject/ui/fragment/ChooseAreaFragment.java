@@ -146,7 +146,7 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCities() {
         tvTitle.setText(selectedProvince.getProvinceName());
         btnBack.setVisibility(View.VISIBLE);
-        listCity = DataSupport.where("province=?",
+        listCity = DataSupport.where("provinceid=?",
                 String.valueOf(selectedProvince.getId())).find(City.class);
         if (listCity.size() > 0) {
             dataList.clear();
@@ -170,11 +170,11 @@ public class ChooseAreaFragment extends Fragment {
      * 查询所有的县区数据，优先从数据库中查询，如果数据库中没有就从服务器查询
      */
     private void queryCounties() {
-        tvTitle.setText(selectedCounty.getCountyName());
+        tvTitle.setText(selectedCity.getCityName());
         btnBack.setVisibility(View.VISIBLE);
         listCounty = DataSupport.where("cityid=?",
                 String.valueOf(selectedCity.getId())).find(County.class);
-        if (listCity.size() > 0) {
+        if (listCounty.size() > 0) {
             dataList.clear();
             for (County county : listCounty) {
                 dataList.add(county.getCountyName());
@@ -265,7 +265,7 @@ public class ChooseAreaFragment extends Fragment {
      * 开启进度条
      */
     private void showProgressDialog() {
-        if (progressDialog != null) {
+        if (progressDialog == null) {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("正在加载。。。");
             progressDialog.setCanceledOnTouchOutside(false);

@@ -34,8 +34,8 @@ public class Utility {
                     provence.setProvinceName(provenceObject.getString("name"));
                     provence.setProvinceCode(provenceObject.getInt("id"));
                     provence.save();
-                    return true;
                 }
+                return true;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -90,7 +90,6 @@ public class Utility {
                     county.save();
                 }
                 return true;
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
