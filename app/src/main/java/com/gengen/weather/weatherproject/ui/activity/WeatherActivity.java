@@ -1,5 +1,6 @@
 package com.gengen.weather.weatherproject.ui.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.gengen.weather.weatherproject.Bean.Forecast;
 import com.gengen.weather.weatherproject.Bean.Weather;
 import com.gengen.weather.weatherproject.R;
+import com.gengen.weather.weatherproject.Service.AutoUpdateService;
 import com.gengen.weather.weatherproject.Utils.Constans;
 import com.gengen.weather.weatherproject.Utils.GlideImageLoader;
 import com.gengen.weather.weatherproject.net.OkHttpUtils;
@@ -196,6 +198,17 @@ public class WeatherActivity extends AppCompatActivity {
      * @param weather
      */
     private void showWeatherInfo(Weather weather) {
+        if (weather != null && "ok".equals(weather.status)) {
+            showData(weather);
+            Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
+            startService(intent);
+        } else {
+            Toast.makeText(this, "获取天气失败", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void showData(Weather weather) {
         String cityName = weather.basic.cityName;
         String updateTime = weather.basic.update.updateTime.split(" ")[1];
         String degree = weather.now.tmp + "℃";
