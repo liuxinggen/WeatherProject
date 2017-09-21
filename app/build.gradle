@@ -18,6 +18,9 @@ android {
         baidu {
             applicationId "com.gengen.weatherprogect.baidu"
         }
+        xiaomi{
+            applicationId "com.gengen.weatherprogect.xiaomi"
+        }
 
 
     }
